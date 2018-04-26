@@ -48,6 +48,17 @@ In all other places it should be replaced with a domain of your email.
  - Run `terraform init`
  - Run `terraform apply`
 
+## Cool part
+
+Except using modern technologies like terraform and lambda this solution 
+also saves your money, as AWS costs are mostly for 
+Route53 hosted zone (less then $1 per month at the moment).
+Storing emails in S3, executing AWS Lambda and SES should be even less.
+
+Another great feature is automation of mailboxes registration and management. 
+In case you need to configure several emails on several domains - manual 
+AWS configuration might become a nightmare.
+
 ## Credits
 
 Based on the work of @arithmetric from: https://arithmetric/aws-lambda-ses-forwarder
