@@ -1,0 +1,19 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "GiveSESPermissionToWriteEmail",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "ses.amazonaws.com"
+      },
+      "Action": "s3:PutObject",
+      "Resource": "arn:aws:s3:::S3-BUCKET-NAME/*",
+      "Condition": {
+        "StringEquals": {
+          "aws:Referer": "AWS-ACCOUNT-ID"
+        }
+      }
+    }
+  ]
+}

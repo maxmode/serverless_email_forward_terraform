@@ -1,1 +1,49 @@
-# serverless_email_forward_terraform
+# Configuration
+
+## Introduction
+This repository allows you to set-up a simple email forwarder without having a real mailbox.
+You can have a nice email address on your domain name and all incoming emails will be redirected to your real address.
+
+The functionality is based on AWS SES service. When incoming email is coming to SES, 
+it writes email content to AWS S3 bucket and then executes AWS Lambda function. The Lambda
+function reads email from S3 bucket and sends it to the list of recipients.
+When recipient receives the email he can safely reply to it - email will be send to original sender.
+However at this moment original sender will see that reply came from another address 
+(your real mailbox).
+
+Most of AWS configuration is done automatically via terraform,
+which allows to manage your mailboxes in one place. 
+
+In case there are modifications in mailbox lists - just run terraform again 
+and it will apply all needed changes automatically.
+
+## Manual part
+1. Verify all receiver emails in AWS SES manually
+1. Create a rule set in AWS SES, if not exists, with name "default-rule-set", make it a default rule
+1. Create a hosted zone in AWS Route 53 for your domain. The hosted zone should be in use for the domain.
+1. Generate Access key and Access token for your AWS User
+1. Install `terraform`
+
+## Configuration
+### In index.js
+1. emailBucket: "emails-YOURDOMAIN-COM-tf"
+1. forwardMapping: "@yourdomain.com": [ LIST_OF_RECEPIENTS ]
+1. fromEmail: "noreply@YOURDOMAIN.COM"
+ 
+### In index.tf
+
+1. variable "domain"
+1. variable "route53_zone_id"
+1. variable "aws_region"
+1. variable "access_key"
+1. variable "secret_key"
+1. variable "recipients"
+
+## Automated part
+ 
+ - Run `terraform init`
+ - Run `terraform apply`
+
+## Credits
+
+Based on the work of @arithmetric from: https://arithmetric/aws-lambda-ses-forwarder
