@@ -1,9 +1,9 @@
 variable "domain" {
   // Specify here on which domain you need redirects
-  default = "yourdomain.com"
+  default = "example.com"
 }
 variable "route53_zone_id" {
-  // Specify here AWS Route53 HostedZone ID, for domain yourdomain.com
+  // Specify here AWS Route53 HostedZone ID, for domain example.com
   default = "Z1XXXXXXXXXX"
 }
 variable "aws_region" {
@@ -21,12 +21,12 @@ variable "secret_key" {
 variable "recipients" {
   type = "list"
   default = [
-    //Specify here incoming adresses, from which you need to redirect. All of them should be on yourdomain.com
-    "address1@yourdomain.com",
-    "address2@yourdomain.com",
-    "address3@yourdomain.com",
-    "admin@yourdomain.com",
-    "info@yourdomain.com"
+    //Specify here incoming adresses, from which you need to redirect. All of them should be on example.com
+    "address1@example.com",
+    "address2@example.com",
+    "address3@example.com",
+    "admin@example.com",
+    "info@example.com"
   ]
 }
 

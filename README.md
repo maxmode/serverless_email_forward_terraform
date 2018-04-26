@@ -25,9 +25,9 @@ and it will apply all needed changes automatically.
 
 ## Configuration
 ### In index.js
-1. emailBucket: "emails-YOURDOMAIN-COM-tf"
-1. forwardMapping: "@yourdomain.com": [ LIST_OF_RECEPIENTS ]
-1. fromEmail: "noreply@YOURDOMAIN.COM"
+1. emailBucket: "emails-EXAMPLE-COM-tf"
+1. forwardMapping: "@example.com": [ "recipient1@example.com", "recipient2@example.com" ]
+1. fromEmail: "noreply@EXAMPLE.COM"
  
 ### In index.tf
 
@@ -37,6 +37,11 @@ and it will apply all needed changes automatically.
 1. variable "access_key"
 1. variable "secret_key"
 1. variable "recipients"
+
+### To check configuration
+Search for "example" in all project files. 
+There should be matches only in documentation. 
+In all other places it should be replaced with a domain of your email.
 
 ## Automated part
  

@@ -28,13 +28,13 @@ console.log("Serverless Email Forwarder");
 //   To match a mailbox name on all domains, use a key without the "at" symbol
 //   and domain part of an email address (i.e. `info`).
 var defaultConfig = {
-  fromEmail: "noreply@yourdomain.com",
+  fromEmail: "noreply@example.com",
   subjectPrefix: "",
-    //Keep format of S3 bucket to "emails-{replace(yourdomain.com, '.', '-')}-tf"
-  emailBucket: "emails-yourdomain-com-tf",
+    //Keep format of S3 bucket to "emails-{replace(example.com, '.', '-')}-tf"
+  emailBucket: "emails-example-com-tf",
   emailKeyPrefix: "emails/",
   forwardMapping: {
-    "@yourdomain.com": [
+    "@example.com": [
       "recepient_address1@recepientdomain.com",
       "recepient_address2@recepientdomain.com"
     ]
