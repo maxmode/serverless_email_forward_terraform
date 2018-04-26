@@ -1,4 +1,3 @@
-# Configuration
 
 ## Introduction
 This repository allows you to set-up a simple email forwarder without having a real mailbox.
