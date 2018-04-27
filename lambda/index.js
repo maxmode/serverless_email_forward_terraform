@@ -30,19 +30,15 @@ console.log("Serverless Email Forwarder");
 var defaultConfig = {
   fromEmail: "noreply@example.com",
   subjectPrefix: "",
-    //Keep format of S3 bucket to "emails-{replace(example.com, '.', '-')}-tf"
-  emailBucket: "emails-example-com-tf",
+  emailBucket: "emails-example.com-tf".replace(".", "-"),
   emailKeyPrefix: "emails/",
   forwardMapping: {
-    "@example.com": [
-      "recepient_address1@recepientdomain.com",
-      "recepient_address2@recepientdomain.com"
-    ]
+    "@example.com": "FORWARD_TO".split(",")
   }
 };
 
 /**
- * Parses the SES event record provided for the `mail` and `receipients` data.
+ * Parses the SES event record provided for the `mail` and `recipients` data.
  *
  * @param {object} data - Data bundle with context, email, etc.
  *

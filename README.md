@@ -16,7 +16,7 @@ which allows to manage your mailboxes in one place.
 In case there are modifications in mailbox lists - just run terraform again 
 and it will apply all needed changes automatically.
 
-## Manual part
+## Preconditions
 1. Verify all receiver emails in AWS SES manually
 1. Create a rule set in AWS SES, if not exists, with name "default-rule-set", make it a default rule
 1. Create a hosted zone in AWS Route 53 for your domain. The hosted zone should be in use for the domain.
@@ -24,29 +24,40 @@ and it will apply all needed changes automatically.
 1. Install `terraform`
 
 ## Configuration
-### In index.js
-1. emailBucket: "emails-EXAMPLE-COM-tf"
-1. forwardMapping: "@example.com": [ "recipient1@example.com", "recipient2@example.com" ]
-1. fromEmail: "noreply@EXAMPLE.COM"
- 
-### In index.tf
 
-1. variable "domain"
-1. variable "route53_zone_id"
-1. variable "aws_region"
-1. variable "access_key"
-1. variable "secret_key"
-1. variable "recipients"
+### In index.auto.tfvars
 
-### To check configuration
-Search for "example" in all project files. 
-There should be matches only in documentation. 
-In all other places it should be replaced with a domain of your email.
+```
+// Email domain
+domain = "yourdomain.test"
+route53_zone_id = "Z1XXXXXXXXX"
+
+// Forwarding rules
+recipients = [
+  "you@yourdomain.test",
+  "admin@yourdomain.test",
+  "info@yourdomain.test"
+]
+forward_to = [
+  "your_gmail_email@gmail.com"
+]
+
+// Access to AWS account
+aws_region = "eu-west-1"
+access_key = "ACCESS_KEY"
+secret_key = "SECRET_KEY"
+
+```
 
 ## Automated part
  
  - Run `terraform init`
  - Run `terraform apply`
+
+### How to check?
+
+Send an email to you@yourdomain.test 
+after few seconds it should end up at your_gmail_email@gmail.com
 
 ## Cool part
 
@@ -56,8 +67,7 @@ Route53 hosted zone (less then $1 per month at the moment).
 Storing emails in S3, executing AWS Lambda and SES should be even less.
 
 Another great feature is automation of mailboxes registration and management. 
-In case you need to configure several emails on several domains - manual 
-AWS configuration might become a nightmare.
+Especially helpful if you need to configure several emails on several domains.
 
 ## Credits
 

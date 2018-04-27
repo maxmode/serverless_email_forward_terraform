@@ -1,34 +1,14 @@
-variable "domain" {
-  // Specify here on which domain you need redirects
-  default = "example.com"
-}
-variable "route53_zone_id" {
-  // Specify here AWS Route53 HostedZone ID, for domain example.com
-  default = "Z1XXXXXXXXXX"
-}
-variable "aws_region" {
-  // Change it if you prefer another region (but for email forwarding it's not critical)
-  default = "eu-west-1"
-}
-variable "access_key" {
-  // Access key of AWS user with admin access at least to: IAM, CloudFront, S3, Lambda, SES
-  default = "ACCESS_KEY"
-}
-variable "secret_key" {
-  //Secret key for your user
-  default = "SECRET_KEY"
-}
+variable "domain" {}
 variable "recipients" {
   type = "list"
-  default = [
-    //Specify here incoming adresses, from which you need to redirect. All of them should be on example.com
-    "address1@example.com",
-    "address2@example.com",
-    "address3@example.com",
-    "admin@example.com",
-    "info@example.com"
-  ]
 }
+variable "forward_to" {
+  type = "list"
+}
+variable "route53_zone_id" {}
+variable "aws_region" {}
+variable "access_key" {}
+variable "secret_key" {}
 
 provider "aws" {
   region = "${var.aws_region}"
