@@ -7,8 +7,3 @@ variable "forward_to" {
 }
 variable "route53_zone_id" {}
 variable "aws_region" {}
-
-data "aws_caller_identity" "current" {}
-provider "archive" {
-  version = "~> 1.0"
-}

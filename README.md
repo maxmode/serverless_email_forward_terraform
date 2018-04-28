@@ -23,29 +23,46 @@ and it will apply all needed changes automatically.
 1. Generate Access key and Access token for your AWS User
 1. Install `terraform`
 
-## Configuration
+## Usage
 
-### In index.auto.tfvars
+### Include it as a module from github
 
 ```
-// Email domain
-domain = "yourdomain.test"
-route53_zone_id = "Z1XXXXXXXXX"
 
-// Forwarding rules
-recipients = [
-  "you@yourdomain.test",
-  "admin@yourdomain.test",
-  "info@yourdomain.test"
-]
-forward_to = [
-  "your_gmail_email@gmail.com"
-]
+provider "aws" {
+  version = "~> 1.12"
+  region = "eu-west-1"
+  access_key = ?
+  secret_key = ?
+}
 
-// Access to AWS account
-aws_region = "eu-west-1"
-access_key = "ACCESS_KEY"
-secret_key = "SECRET_KEY"
+module "serverless_email_forward_terraform" {
+  source       = "github.com/maxmode/serverless_email_forward_terraform"
+
+  // Email domain.
+  domain = ?
+  
+  // Route53 hosted zone, in which domain is registered.
+  route53_zone_id = ?
+
+  // Region for receiving emails.
+  // Possible values: "eu-west-1", "us-east-1", "us-west-2".
+  aws_region = "eu-west-1"
+
+  // Email adresses on your domain
+  recipients = [
+    "hello@yourdomain",
+    "admin@yourdomain",
+    "info@yourdomain"
+  ]
+  
+  // Where to forward emails ()
+  forward_to = [
+    "email1@example.com",
+    "email2@example.com"
+  ]
+}
+
 
 ```
 
@@ -53,17 +70,18 @@ secret_key = "SECRET_KEY"
  
  - Run `terraform init`
  - Run `terraform apply`
+ - Wait 10..20 min, until you receive a confirmation email from AWS that domain can be used AWS SES
 
 ### How to check?
 
-Send an email to you@yourdomain.test 
-after few seconds it should end up at your_gmail_email@gmail.com
+Send an email to hello@yourdomain 
+after few seconds it should end up at email1@example.com
 
 ## Cool part
 
 Except using modern technologies like terraform and lambda this solution 
 also saves your money, as AWS costs are mostly for 
-Route53 hosted zone (less then $1 per month at the moment).
+Route53 hosted zone (around .5$ per month at the moment).
 Storing emails in S3, executing AWS Lambda and SES should be even less.
 
 Another great feature is automation of mailboxes registration and management. 
