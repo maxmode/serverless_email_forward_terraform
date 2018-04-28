@@ -1,6 +1,6 @@
 
 ## Introduction
-This repository allows you to set-up a simple email forwarder without having a real mailbox.
+Terraform module allows you to set-up a simple email forwarder without having a real mailbox.
 You can have a nice email address on your domain name and all incoming emails will be redirected to your real address.
 
 The functionality is based on AWS SES service. When incoming email is coming to SES, 
@@ -16,17 +16,18 @@ which allows to manage your mailboxes in one place.
 In case there are modifications in mailbox lists - just run terraform again 
 and it will apply all needed changes automatically.
 
-## Preconditions
+## Usage
+
+### Preconditions
 1. Verify all receiver emails in AWS SES manually
 1. Create a rule set in AWS SES, if not exists, with name "default-rule-set", make it a default rule
 1. Create a hosted zone in AWS Route 53 for your domain. The hosted zone should be in use for the domain.
 1. Generate Access key and Access token for your AWS User
 1. Install `terraform`
 
-## Usage
-
 ### Include it as a module from github
 
+Create file index.tf with your configuration:
 ```
 
 provider "aws" {
@@ -56,7 +57,7 @@ module "serverless_email_forward_terraform" {
     "info@yourdomain"
   ]
   
-  // Where to forward emails ()
+  // Where to forward emails (list)
   forward_to = [
     "email1@example.com",
     "email2@example.com"
@@ -66,7 +67,7 @@ module "serverless_email_forward_terraform" {
 
 ```
 
-## Automated part
+### Execute terraform
  
  - Run `terraform init`
  - Run `terraform apply`
